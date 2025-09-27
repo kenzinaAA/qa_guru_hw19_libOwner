@@ -25,15 +25,15 @@ public class WebDriverProvider implements Supplier<WebDriver> {
 
     public WebDriver createDriver() {
         switch (config.getBrowser()) {
-            case CHROME: {
+            case CHROME -> {
                 WebDriverManager.chromedriver().setup();
                 return new ChromeDriver();
             }
-            case FIREFOX: {
+            case FIREFOX -> {
                 WebDriverManager.firefoxdriver().setup();
                 return new FirefoxDriver();
             }
-            default: {
+            default -> {
                 throw new RuntimeException("No such driver");
             }
         }
