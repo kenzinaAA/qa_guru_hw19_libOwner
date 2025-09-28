@@ -1,0 +1,4 @@
+browser=CHROME
+baseUrl=https://github.com
+browserVersion=128.0
+remoteWebDriverUrl=https://user1:1234@selenoid.autotests.cloud/wd/hub

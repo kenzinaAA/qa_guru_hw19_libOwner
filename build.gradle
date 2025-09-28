@@ -1,27 +1,47 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id('io.qameta.allure') version '2.12.0'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+allure {
+    report {
+        version.set("2.29.0")
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.29.1")
+            }
+        }
+    }
+}
 
-repositories {
+repositories {1
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(
-            'org.junit.jupiter:junit-jupiter-api:5.8.1',
-            'org.seleniumhq.selenium:selenium-java:3.141.59',
-            'io.github.bonigarcia:webdrivermanager:5.2.1',
-            'org.aeonbits.owner:owner:1.0.4',
-            'org.assertj:assertj-core:3.23.1'
+    testImplementation (
+            'io.rest-assured:rest-assured:5.5.2',
+            'com.fasterxml.jackson.core:jackson-databind:2.18.2',
+            'io.qameta.allure:allure-rest-assured:2.29.1',
+            'com.codeborne:selenide:7.9.3',
+            'org.junit.jupiter:junit-jupiter:5.10.0',
+            'org.slf4j:slf4j-simple:2.0.7',
+            'io.qameta.allure:allure-selenide:2.29.1',
+            'org.aeonbits.owner:owner:1.0.12'
     )
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.8.1')
+
 }
 
-test {
+tasks.withType(Test) {
     useJUnitPlatform()
-    //-PbaseUrl=https://github.com -Pbrowser=FIREFOX
     systemProperties(System.getProperties())
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
