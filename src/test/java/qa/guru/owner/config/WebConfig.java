@@ -10,9 +10,11 @@ import org.aeonbits.owner.Config;
 
 public interface WebConfig extends Config {
     @Key("browser")
+    @DefaultValue("chrome")
     String browser();
 
     @Key("browserVersion")
+    @DefaultValue("140.0")
     String browserVersion();
 
     @Key("remoteWebDriverUrl")
